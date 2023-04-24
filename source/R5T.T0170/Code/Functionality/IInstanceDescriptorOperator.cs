@@ -72,17 +72,17 @@ namespace R5T.T0170
             // to take advantage of the short-circuiting operator-&& in C#. This speeds performance since if one of the equality tests is false, the rest are not evaluated.
             var output = true
                 // Put identity name first since identity name will get you 99% of the way to uniquely identifying a instance descriptor.
-                && x.IdentityName == y.IdentityName
+                && x.IdentityName.Equals(y.IdentityName)
                 // Put the kind-marked full member name second since it gets you 99.9% of the way.
-                && x.KindMarkedFullMemberName == y.KindMarkedFullMemberName
+                && x.KindMarkedFullMemberName.Equals(y.KindMarkedFullMemberName)
                 // Put obsolete third, since it's a boolean and thus easy to evaluate.
-                && x.IsObsolete == y.IsObsolete
+                && x.IsObsolete.Equals(y.IsObsolete)
                 // Even though the kind-marked part of the kind-marked full member name gets you most of the way to the variety, there are still multiple varieties that are all methods.
-                && x.InstanceVarietyName == y.InstanceVarietyName
+                && x.InstanceVarietyName.Equals(y.InstanceVarietyName)
                 // Second to last is the project, since the identity name contains the namespace, which is basically the project.
-                && x.ProjectFilePath == y.ProjectFilePath
+                && x.ProjectFilePath.Equals(y.ProjectFilePath)
                 // Finally, it might be basically the same instance, just with an update to the description.
-                && x.DescriptionXml == y.DescriptionXml
+                && x.DescriptionXml.Equals(y.DescriptionXml)
                 ;
 
             return output;

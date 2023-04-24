@@ -13,11 +13,11 @@ namespace R5T.T0170
     [DataTypeMarker]
     public class InstanceDescriptor
     {
-        public InstanceVarietyName InstanceVarietyName { get; set; }
-        public IdentityName IdentityName { get; set; }
-        public KindMarkedFullMemberName KindMarkedFullMemberName { get; set; }
+        public IInstanceVarietyName InstanceVarietyName { get; set; }
+        public IIdentityName IdentityName { get; set; }
+        public IKindMarkedFullMemberName KindMarkedFullMemberName { get; set; }
         public IProjectFilePath ProjectFilePath { get; set; }
-        public DescriptionXml DescriptionXml { get; set; }
+        public IDescriptionXml DescriptionXml { get; set; }
         public bool IsObsolete { get; set; }
 
 

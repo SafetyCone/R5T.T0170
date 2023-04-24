@@ -2,13 +2,13 @@ using System;
 using System.Linq;
 
 using R5T.T0132;
-using R5T.T0160;
 using R5T.T0161.Extensions;
 using R5T.T0162.Extensions;
 using R5T.T0170.Extensions;
 using R5T.T0171.Extensions;
 using R5T.T0172.Extensions;
 using R5T.T0173.Extensions;
+using R5T.T0181;
 
 using DeserializedType = R5T.T0170.InstanceDescriptor;
 using SerializedType = R5T.T0170.Serialization.InstanceDescriptor;
@@ -19,7 +19,7 @@ namespace R5T.T0170
     public partial interface IInstanceDescriptorOperator : IFunctionalityMarker
     {
         public DeserializedType[] Deserialize_Synchronous(
-            JsonFilePath jsonFilePath)
+            IJsonFilePath jsonFilePath)
         {
             var output = Instances.JsonOperator.Deserialize_Synchronous<SerializedType[]>(
                 jsonFilePath.Value)
@@ -30,7 +30,7 @@ namespace R5T.T0170
         }
 
         public void Serialize_Synchronous(
-            JsonFilePath jsonFilePath,
+            IJsonFilePath jsonFilePath,
             DeserializedType[] instances)
         {
             var serializable = instances
@@ -46,11 +46,11 @@ namespace R5T.T0170
         {
             var output = new SerializedType
             {
-                DescriptionXml = deserializedType.DescriptionXml,
-                IdentityName = deserializedType.IdentityName,
-                InstanceVarietyName = deserializedType.InstanceVarietyName,
+                DescriptionXml = deserializedType.DescriptionXml?.Value,
+                IdentityName = deserializedType.IdentityName.Value,
+                InstanceVarietyName = deserializedType.InstanceVarietyName.Value,
                 IsObsolete = deserializedType.IsObsolete,
-                KindMarkedFullMemberName = deserializedType.KindMarkedFullMemberName,
+                KindMarkedFullMemberName = deserializedType.KindMarkedFullMemberName.Value,
                 ProjectFilePath = deserializedType.ProjectFilePath.Value,
             };
 
