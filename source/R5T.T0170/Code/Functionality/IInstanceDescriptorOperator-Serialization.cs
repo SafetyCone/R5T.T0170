@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 
+using R5T.L0062.T000.Extensions;
+using R5T.L0063.T000.Extensions;
 using R5T.T0132;
-using R5T.T0161.Extensions;
-using R5T.T0162.Extensions;
 using R5T.T0170.Extensions;
 using R5T.T0171.Extensions;
 using R5T.T0172.Extensions;
@@ -47,10 +47,10 @@ namespace R5T.T0170
             var output = new SerializedType
             {
                 DescriptionXml = deserializedType.DescriptionXml?.Value,
-                IdentityName = deserializedType.IdentityName.Value,
+                IdentityName = deserializedType.IdentityString.Value,
                 InstanceVarietyName = deserializedType.InstanceVarietyName.Value,
                 IsObsolete = deserializedType.IsObsolete,
-                KindMarkedFullMemberName = deserializedType.KindMarkedFullMemberName.Value,
+                KindMarkedFullMemberName = deserializedType.SignatureString.Value,
                 ProjectFilePath = deserializedType.ProjectFilePath.Value,
             };
 
@@ -62,10 +62,10 @@ namespace R5T.T0170
             var output = new DeserializedType
             {
                 DescriptionXml = serializedType.DescriptionXml.ToDescriptionXml(),
-                IdentityName = serializedType.IdentityName.ToIdentityName(),
+                IdentityString = serializedType.IdentityName.ToIdentityString(),
                 InstanceVarietyName = serializedType.InstanceVarietyName.ToInstanceVarietyName(),
                 IsObsolete = serializedType.IsObsolete,
-                KindMarkedFullMemberName = serializedType.KindMarkedFullMemberName.ToKindMarkedFullMemberName(),
+                SignatureString = serializedType.KindMarkedFullMemberName.ToSignatureString(),
                 ProjectFilePath = serializedType.ProjectFilePath.ToProjectFilePath(),
             };
 

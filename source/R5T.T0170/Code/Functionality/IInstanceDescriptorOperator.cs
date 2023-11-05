@@ -28,7 +28,9 @@ namespace R5T.T0170
             HashSet<IProjectFilePath> projectsToIgnoreFilePathsHash)
         {
             // Use an equality comparer that does not care about the description (since the description being updated doesn't really create a new instance descriptor).
-            var instanceDescriptorEqualityComparer = N002.InstanceDescriptorEqualityComparer.Instance;
+            //var instanceDescriptorEqualityComparer = N002.InstanceDescriptorEqualityComparer.Instance;
+            // UH-OH! Because later code uses only the new and removed instances for updating the instances file, we need to include description in new and removed testing.
+            var instanceDescriptorEqualityComparer = N001.InstanceDescriptorEqualityComparer.Instance;
 
             // Determine added instances: these are easy, it's just what instances exist in the "per-run" file that don't exist in the "prior-to" today file.
             var firstRunInstances = runInstances.TakeFirst();
@@ -72,9 +74,9 @@ namespace R5T.T0170
             // to take advantage of the short-circuiting operator-&& in C#. This speeds performance since if one of the equality tests is false, the rest are not evaluated.
             var output = true
                 // Put identity name first since identity name will get you 99% of the way to uniquely identifying a instance descriptor.
-                && x.IdentityName.Equals(y.IdentityName)
+                && x.IdentityString.Equals(y.IdentityString)
                 // Put the kind-marked full member name second since it gets you 99.9% of the way.
-                && x.KindMarkedFullMemberName.Equals(y.KindMarkedFullMemberName)
+                && x.SignatureString.Equals(y.SignatureString)
                 // Put obsolete third, since it's a boolean and thus easy to evaluate.
                 && x.IsObsolete.Equals(y.IsObsolete)
                 // Even though the kind-marked part of the kind-marked full member name gets you most of the way to the variety, there are still multiple varieties that are all methods.
@@ -112,8 +114,8 @@ namespace R5T.T0170
 
             /// See ordering notes in <see cref="Equals_Full(InstanceDescriptor, InstanceDescriptor)"/>.
             var output = true
-                && x.IdentityName.Equals(y.IdentityName)
-                && x.KindMarkedFullMemberName.Equals(y.KindMarkedFullMemberName)
+                && x.IdentityString.Equals(y.IdentityString)
+                && x.SignatureString.Equals(y.SignatureString)
                 && x.IsObsolete.Equals(y.IsObsolete)
                 && x.InstanceVarietyName.Equals(y.InstanceVarietyName)
                 && x.ProjectFilePath.Equals(y.ProjectFilePath)
@@ -128,7 +130,7 @@ namespace R5T.T0170
             var hashCode = HashCode.Combine(
                 obj.ProjectFilePath,
                 // Use identity name, not kind-marked full member name, since identity name will be unique in the project and all the extra parameter name strings and stuff are just extra work.
-                obj.IdentityName);
+                obj.IdentityString);
 
             return hashCode;
         }
