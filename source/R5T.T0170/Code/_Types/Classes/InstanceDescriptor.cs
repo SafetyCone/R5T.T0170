@@ -13,7 +13,7 @@ namespace R5T.T0170
     [DataTypeMarker]
     public class InstanceDescriptor
     {
-        public IInstanceVarietyName InstanceVarietyName { get; set; }
+        public T0171.IInstanceVarietyName InstanceVarietyName { get; set; }
         public IIdentityString IdentityString { get; set; }
         public ISignatureString SignatureString { get; set; }
         public IProjectFilePath ProjectFilePath { get; set; }
